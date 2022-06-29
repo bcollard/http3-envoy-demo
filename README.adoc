@@ -13,7 +13,15 @@ curl --version
 curl -s -I --http3 https://www.google.fr
 ```
 
-== DEMO
+== Get Envoy
+Install with the latest brew recipe:
+
+```bash
+brew install envoy
+# should be version v1.22.2+
+```
+
+== Demo
 Start a dummy backend service:
 
 ```bash
