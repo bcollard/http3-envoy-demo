@@ -1,0 +1,53 @@
+diff --git a/prometheus-grafana/docker-compose.yml b/prometheus-grafana/docker-compose.yml
+index 0291d1b..e4ddf32 100644
+--- a/prometheus-grafana/docker-compose.yml
++++ b/prometheus-grafana/docker-compose.yml
+@@ -60,7 +60,7 @@ services:
+       - /sys:/sys:ro
+       - /var/lib/docker/:/var/lib/docker:ro
+     ports:
+-      - 8080:8080
++      - 8081:8080
+     restart: always
+     deploy:
+       mode: global
+diff --git a/prometheus-grafana/prometheus/prometheus.yml b/prometheus-grafana/prometheus/prometheus.yml
+index 2e25af6..c94d172 100644
+--- a/prometheus-grafana/prometheus/prometheus.yml
++++ b/prometheus-grafana/prometheus/prometheus.yml
+@@ -26,12 +26,14 @@ alerting:
+ # A scrape configuration containing exactly one endpoint to scrape:
+ # Here it's Prometheus itself.
+ scrape_configs:
+-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
++  - job_name: 'envoy'
+ 
+-  - job_name: app
++    # Override the global default and scrape targets from this job every 5 seconds.
+     scrape_interval: 5s
+-    static_configs:
+-      - targets: ['host.docker.internal:8000']
++    metrics_path: "/stats/prometheus"
++    static_configs: 
++         - targets: ['host.lima.internal:9901']
++
+ 
+   - job_name: 'prometheus'
+ 
+@@ -41,7 +43,6 @@ scrape_configs:
+     static_configs:
+          - targets: ['localhost:9090']
+ 
+-
+   - job_name: 'cadvisor'
+ 
+     # Override the global default and scrape targets from this job every 5 seconds.
+@@ -51,7 +52,7 @@ scrape_configs:
+     - names:
+       - 'tasks.cadvisor'
+       type: 'A'
+-      port: 8080
++      port: 8081
+ 
+ #     static_configs:
+ #          - targets: ['cadvisor:8080']

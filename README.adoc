@@ -1,0 +1,45 @@
+= HTTP/3 with Envoy
+
+== Prerequisites
+- brew
+- docker
+
+== CURL
+Install curl v7.83 with QUIC support:
+
+```bash
+brew install -s curl.rb
+curl --version
+curl -s -I --http3 https://www.google.fr
+```
+
+== DEMO
+Start a dummy backend service:
+
+```bash
+make httpbin
+curl 127.0.0.1:8080/headers
+```
+
+Start Envoy with HTTP/3:
+
+```bash 
+make envoy
+curl -v -k --http3 --resolve example.com:10000:127.0.0.1 -v https://example.com:10000/headers
+# docker run --name quiche --rm cloudflare/quiche bash -c "quiche-client --no-verify https://host.lima.internal:10000/headers"
+```
+
+== Monitoring
+
+Install the prom stack
+
+```bash
+git clone https://github.com/ninadingole/docker-images
+cd docker-images
+git apply ../demo-env.patch
+docker-compose up -d
+open http://127.0.0.1:3000
+# login with admin/foobar
+```
+
+Finally, import `envoy-dashboard.json` as a new dashboard
