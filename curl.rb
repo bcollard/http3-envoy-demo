@@ -7,9 +7,10 @@
 # You can add --HEAD if you want to build curl from git master (recommended)
 #
 # For more information, see https://developers.cloudflare.com/http3/tutorials/curl-brew
+# Original brew curl ref: https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/curl.rb
 #
 class Curl < Formula
-  desc "Get a file from an HTTP, HTTPS or FTP server"
+  desc "Get a file from an HTTP, HTTPS or FTP server with HTTP/3 support using quiche"
   homepage "https://curl.se"
   url "https://curl.se/download/curl-7.85.0.tar.bz2"
   mirror "https://github.com/curl/curl/releases/download/curl-7_84_0/curl-7.85.0.tar.bz2"
