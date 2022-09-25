@@ -29,7 +29,7 @@ index 2e25af6..c94d172 100644
 -      - targets: ['host.docker.internal:8000']
 +    metrics_path: "/stats/prometheus"
 +    static_configs: 
-+         - targets: ['host.lima.internal:9901']
++         - targets: ['host.docker.internal:9901']
 +
  
    - job_name: 'prometheus'

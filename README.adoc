@@ -45,6 +45,7 @@ Install the prom stack
 git clone https://github.com/ninadingole/docker-images
 cd docker-images
 git apply ../demo-env.patch
+cd prometheus-grafana
 docker-compose up -d
 open http://127.0.0.1:3000
 # login with admin/foobar
